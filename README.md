@@ -105,7 +105,6 @@ The repository is organized into multiple modules that abstract the infrastructu
 
 - AWS Account
 - Terraform (v1.0+)
-- AWS CLI (optional)
 - SSH key pair for EC2 access
 
 ## 🚀 Deployment Steps
@@ -113,7 +112,7 @@ The repository is organized into multiple modules that abstract the infrastructu
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/yourusername/terraform-aws-multitier.git
-   cd terraform-aws-multitier
+   cd Terraform_and_AWS_Project/
 
 2. **Initialize Terraform:**
    ```bash
