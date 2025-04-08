@@ -4,15 +4,18 @@ This Terraform project provisions a complete AWS infrastructure for a web applic
 
 ## Table of Contents
 - [Architecture Overview](#architecture-overview)
-- [Modules Overview](#modules-overview)
-- [Getting Started](#getting-started)
-- [Deployment](#deployment)
-- [Project Variables](#project-variables)
-- [Terraform State Management](#terraform-state-management)
-- [Troubleshooting](#troubleshooting)
-- [License](#license)
+- [Project Structure](#Project-Structure)
+- [Project Modules](#Project-Modules)
+- [How It Works](#How-It-Works)
+- [Prerequisites](#Prerequisites)
+- [Deployment Steps](#Deployment-Steps)
+- [Demo](#Demo)
+- [Project Variables](#Project-Variables)
+- [Contributing](#Contributing)
 
 ## 🧭 Architecture Overview
+
+![Screenshot 2025-04-07 230817](https://github.com/user-attachments/assets/aca5b48e-4a56-44f8-ae8c-b0a713b1e834)
 
 The AWS architecture is split into several components to enhance security and manageability:
 
@@ -49,7 +52,30 @@ The AWS architecture is split into several components to enhance security and ma
    - **S3 Bucket:** Stores the Terraform state.
    - **DynamoDB Table:** Provides state locking for consistent Terraform runs.
 
-## Modules Overview
+## 📁 Project Structure
+
+project-folder/
+├── modules
+│   ├── vpc
+│   ├── subnets
+│   ├── igw
+│   ├── route_table
+│   ├── private_route_table
+│   ├── security_groups
+│   ├── data_source
+│   ├── ec2_instances
+│   ├── load_balancers
+│   ├── S3
+│   └── DynamoDB
+├── web_server_1
+├── web_server_2
+├── main.tf
+├── variables.tf
+├── outputs.tf
+├── provider.tf
+└── backend.tf
+
+## 🧱 Project Modules
 
 The repository is organized into multiple modules that abstract the infrastructure components:
 
@@ -67,14 +93,71 @@ The repository is organized into multiple modules that abstract the infrastructu
 - **S3:** Creates an S3 bucket for Terraform state.
 - **DynamoDB:** Sets up a DynamoDB table for Terraform state locking.
 
-## Getting Started
+## 🔁 How It Works
 
-### Prerequisites
+1. User accesses the **public ALB DNS URL**.
+2. Public ALB routes the request to **public EC2 instances**.
+3. Public instances (NGINX) forward the request to the **private ALB**.
+4. Private ALB distributes the traffic to **private EC2 instances** hosting the web server.
 
-- **Terraform:** Install [Terraform](https://www.terraform.io/downloads.html) (version 1.x recommended).
-- **AWS CLI:** Install and configure the AWS CLI with proper credentials and region settings.
-- **SSH Key:** Ensure you have an SSH key pair created in AWS and update the `key_name` and `private_key_path` in the root `variables.tf`.
-- **AWS Account:** Confirm your AWS account has permissions to create the required resources (VPCs, EC2 instances, load balancers, etc.).
+## ⚙️ Prerequisites
 
-### Directory Structure
+- AWS Account
+- Terraform (v1.0+)
+- AWS CLI (optional)
+- SSH key pair for EC2 access
+
+## 🚀 Deployment Steps
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/terraform-aws-multitier.git
+   cd terraform-aws-multitier
+
+2. **Initialize Terraform:**
+   ```bash
+   terraform init
+
+3. **Preview the plan:**
+   ```bash
+   terraform plan
+
+4. **Apply the configuration:**
+   ```bash
+   terraform apply
+
+5. **Access the app:**
+   - Copy the public load balancer DNS output and open it in a browser.
+
+## 📸 Demo
+
+Below are screenshots of the two web pages served by the private EC2 instances after accessing the public load balancer URL in the browser:
+
+### 🔵 Web Server 1
+
+![Screenshot 2025-04-07 224655](https://github.com/user-attachments/assets/9993839e-1475-4fda-ac20-ca8fe7bbd79e)
+
+
+### 🟢 Web Server 2
+
+![Screenshot 2025-04-07 212125](https://github.com/user-attachments/assets/3c9edcff-9c9b-4028-bfdd-0747bf9298cd)
+
+  
+## 🔑 Project Variables
+
+The following key variables must be set (or are provided with defaults):
+
+- **instance_type**: The type of EC2 instance (default: `t2.micro`).
+- **key_name**: Name of the SSH key pair (default: `abdallah`).
+- **private_key_path**: Path to your private SSH key (default: `/home/abdallah/abdallah.pem`).
+
+Other variables (such as subnet CIDRs, VPC CIDR, etc.) are defined within the respective module files or passed from the root configuration.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please fork this repository and submit pull requests for improvements or bug fixes.
+
+
+
+
 
