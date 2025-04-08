@@ -111,7 +111,7 @@ The repository is organized into multiple modules that abstract the infrastructu
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/terraform-aws-multitier.git
+   git clone https://github.com/AbdallahMostafa02/Terraform_and_AWS_Project.git
    cd Terraform_and_AWS_Project/
 
 2. **Initialize Terraform:**
