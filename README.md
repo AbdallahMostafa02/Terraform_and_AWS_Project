@@ -54,7 +54,7 @@ The AWS architecture is split into several components to enhance security and ma
 
 ## 📁 Project Structure
 ```
-project-folder/
+project-directory/
 ├── modules
 │   ├── vpc
 │   ├── subnets
