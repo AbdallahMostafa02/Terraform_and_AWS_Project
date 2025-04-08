@@ -53,7 +53,7 @@ The AWS architecture is split into several components to enhance security and ma
    - **DynamoDB Table:** Provides state locking for consistent Terraform runs.
 
 ## 📁 Project Structure
-
+```
 project-folder/
 ├── modules
 │   ├── vpc
