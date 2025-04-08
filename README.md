@@ -74,6 +74,7 @@ project-folder/
 ├── outputs.tf
 ├── provider.tf
 └── backend.tf
+```
 
 ## 🧱 Project Modules
 
